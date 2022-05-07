@@ -1,0 +1,314 @@
+[
+  {
+    "constellation": "Aquarius",
+    "stars": [
+      {
+        "name": "Omega2 Aquarii",
+        "neighbors": [
+          "99 Aquarii"
+        ]
+      },
+      {
+        "name": "99 Aquarii",
+        "neighbors": [
+          "Omega2 Aquarii",
+          "98 Aquarii"
+        ]
+      },
+      {
+        "name": "98 Aquarii",
+        "neighbors": [
+          "99 Aquarii",
+          "88 Aquarii"
+        ]
+      },
+      {
+        "name": "88 Aquarii",
+        "neighbors": [
+          "98 Aquarii",
+          "Delta Aquarii"
+        ]
+      },
+      {
+        "name": "Delta Aquarii",
+        "neighbors": [
+          "88 Aquarii",
+          "Tau Aquarii"
+        ]
+      },
+      {
+        "name": "Tau Aquarii",
+        "neighbors": [
+          "Delta Aquarii",
+          "Lambda Aquarii"
+        ]
+      },
+      {
+        "name": "Lambda Aquarii",
+        "neighbors": [
+          "Tau Aquarii",
+          "Theta Aquarii"
+        ]
+      },
+      {
+        "name": "Theta Aquarii",
+        "neighbors": [
+          "Lambda Aquarii",
+          "Iota Aquarii",
+          "Gamma Aquarii"
+        ]
+      },
+      {
+        "name": "Iota Aquarii",
+        "neighbors": [
+          "Theta Aquarii"
+        ]
+      },
+      {
+        "name": "Gamma Aquarii",
+        "neighbors": [
+          "Theta Auqarii",
+          "Alpha Aquarii",
+          "Zeta Aquarii"
+        ]
+      },
+      {
+        "name": "Zeta Aquarii",
+        "neighbors": [
+          "Gamma Aquarii",
+          "Pi Aquarii"
+        ]
+      },
+      {
+        "name": "Pi Aquarii",
+        "neighbors": [
+          "Zeta Aquarii"
+        ]
+      },
+      {
+        "name": "Alpha Aquarii",
+        "neighbors": [
+          "Gamma Aquarii",
+          "Beta Aquarii"
+        ]
+      },
+      {
+        "name": "Beta Aquarii",
+        "neighbors": [
+          "Alpha Aquarii",
+          "Nu Aquarii"
+        ]
+      },
+      {
+        "name": "Nu Aquarii",
+        "neighbors": [
+          "Beta Aquarii",
+          "Epsilon Aquarii"
+        ]
+      },
+      {
+        "name": "Epsilon Aquarii",
+        "neighbors": [
+          "Nu Aquarii"
+        ]
+      }
+    ]
+  },
+  {
+    "constellation": "Leo",
+    "stars": [
+      {
+        "name": "Beta Leo",
+        "neighbors": [
+          "Delta Leo",
+          "Theta Leo"
+        ]
+      },
+      {
+        "name": "Delta Leo",
+        "neighbors": [
+          "Beta Leo",
+          "Gamma Leo"
+        ]
+      },
+      {
+        "name": "Theta Leo",
+        "neighbors": [
+          "Beta Leo",
+          "Alpha Leo"
+        ]
+      },
+      {
+        "name": "Alpha Leo",
+        "neighbors": [
+          "Theta Leo",
+          "Eta Leo"
+        ]
+      },
+      {
+        "name": "Eta Leo",
+        "neighbors": [
+          "Alpha Leo",
+          "Gamma Leo"
+        ]
+      },
+      {
+        "name": "Gamma Leo",
+        "neighbors": [
+          "Delta Leo",
+          "Eta Leo",
+          "Zeta Leo"
+        ]
+      },
+      {
+        "name": "Zeta Leo",
+        "neighbors": [
+          "Gamma Leo",
+          "Mu Leo"
+        ]
+      },
+      {
+        "name": "Mu Leo",
+        "neighbors": [
+          "Zeta Leo",
+          "Epsilon Leo"
+        ]
+      },
+      {
+        "name": "Epsilon Leo",
+        "neighbors": [
+          "Mu Leo"
+        ]
+      }
+    ]
+  },
+  {
+    "constellation": "Scorpius",
+    "stars": [
+      {
+        "name": "Psi Scorpii",
+        "neighbors": [
+          "Xi Scorpii"
+        ]
+      },
+      {
+        "name": "Xi Scorpii",
+        "neighbors": [
+          "Psi Scorpii",
+          "Beta Scorpii"
+        ]
+      },
+      {
+        "name": "Beta Scorpii",
+        "neighbors": [
+          "Xi Scorpii",
+          "Delta Scorpii"
+        ]
+      },
+      {
+        "name": "Delta Scorpii",
+        "neighbors": [
+          "Beta Scorpii",
+          "Pi Scorpii",
+          "Sigma Scorpii"
+        ]
+      },
+      {
+        "name": "Pi Scorpii",
+        "neighbors": [
+          "Delta Scorpii",
+          "Rho Scorpii"
+        ]
+      },
+      {
+        "name": "Rho Scorpii",
+        "neighbors": [
+          "Pi Scorpii"
+        ]
+      },
+      {
+        "name": "Sigma Scorpii",
+        "neighbors": [
+          "Delta Scorpii",
+          "Alpha Scorpii"
+        ]
+      },
+      {
+        "name": "Alpha Scorpii",
+        "neighbors": [
+          "Sigma Scorpii",
+          "Tau Scorpii"
+        ]
+      },
+      {
+        "name": "Tau Scorpii",
+        "neighbors": [
+          "Alpha Scorpii",
+          "Epsilon Scorpii"
+        ]
+      },
+      {
+        "name": "Epsilon Scorpii",
+        "neighbors": [
+          "Tau Scorpii",
+          "Mu1 Scorpii"
+        ]
+      },
+      {
+        "name": "Mu1 Scorpii",
+        "neighbors": [
+          "Epsilon Scorpii",
+          "Zeta2 Scorpii"
+        ]
+      },
+      {
+        "name": "Zeta2 Scorpii",
+        "neighbors": [
+          "Mu1 Scorpii",
+          "Eta Scorpii"
+        ]
+      },
+      {
+        "name": "Eta Scorpii",
+        "neighbors": [
+          "Zeta2 Scorpii",
+          "Theta Scorpii"
+        ]
+      },
+      {
+        "name": "Theta Scorpii",
+        "neighbors": [
+          "Eta Scorpii",
+          "Iota1 Scorpii"
+        ]
+      },
+      {
+        "name": "Iota1 Scorpii",
+        "neighbors": [
+          "Theta Scorpii",
+          "Kappa Scorpii",
+          "G Scorpii"
+        ]
+      },
+      {
+        "name": "Kappa Scorpii",
+        "neighbors": [
+          "Iota1 Scorpii",
+          "Lambda Scorpii"
+        ]
+      },
+      {
+        "name": "Lambda Scorpii",
+        "neighbors": [
+          "Kappa Scorpii"
+        ]
+      },
+      {
+        "name": "G Scorpii",
+        "neighbors": [
+          "Iota1 Scorpii"
+        ]
+      }
+    ]
+  }
+]
