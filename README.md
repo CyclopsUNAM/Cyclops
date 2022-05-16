@@ -61,7 +61,7 @@ However, SIMBAD contains no information on constellations, so we had to search f
 
 
 ### Part IV. Visualization
-Probando
+Probandooo
 
 
 
