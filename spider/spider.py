@@ -21,10 +21,10 @@ This module provides functions to fetch star data from the SIMBAD database.
 """
 
 import json
+import psycopg2
 from urllib.request import urlopen
 from configparser import ConfigParser
 from sys import argv
-# import psycopg2
 
 def star_info(name):
     """Retrieves SIMBAD information on a given star."""
