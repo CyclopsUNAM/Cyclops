@@ -110,7 +110,8 @@ def send_to_database(data, f='database.ini'):
         cur = conn.cursor()
 
         # Send star info to database
-
+        # INSERT INTO stars values (name, constellation, ra, dec, pm_ra, 
+        #                           pm_dec, parallax, time)
 
         # Display the PostgreSQL database server version
         db_version = cur.fetchone()
