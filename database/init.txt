@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS stars (
+  name VARCHAR(30),
+  ra VARCHAR(15),
+  dec VARCHAR(15),
+  pm_ra NUMERIC(6, 2),
+  pm_dec NUMERIC(6, 2),
+  parallax NUMERIC(5, 2),
+  constellation VARCHAR(30),
+  time TIMESTAMPTZ,
+  neighbors VARCHAR(60)
+);

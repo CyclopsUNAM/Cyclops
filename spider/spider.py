@@ -1,4 +1,4 @@
-# Cyclops Spider
+#!/usr/bin/env python3
 # Copyright (C) 2022  Karime Ochoa Jacinto
 #                     Luis Aaron Nieto Cruz
 #                     Anton Pashkov
@@ -17,63 +17,53 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Cyclops Spider
 
-This module provides functions to fetch star data from the SIMBAD database.
+This module fetches star data from SIMBAD on any given constellation and sends
+collected data to a PostgreSQL database.
 """
 
 import json
 import psycopg2
-from urllib.request import urlopen
+from astropy.table import Column
+from astroquery.simbad import Simbad
+from datetime import datetime, timezone
 from configparser import ConfigParser
 from sys import argv
 
-def star_info(name):
-    """Retrieves SIMBAD information on a given star."""
 
-    # Replace ' ' with '+'
-    name = name.replace(' ', '+')
+def query_constellation(name):
+    """Queries Simbad for the stars of a given constellation and returns a
+    table from the results."""
 
-    # URL format
-    url = ('http://simbad.cds.unistra.fr/simbad/sim-script?submit'
-          '=submit+script&script=query+id+' + name)
+    # Set fields to include in the result
+    custom = Simbad()
+    custom.add_votable_fields("typed_id", "ra", "dec", "pmra", "pmdec", "plx")
+    custom.remove_votable_fields("main_id", "coordinates")
 
-    # Read contents and store data in dictionary
-    with urlopen(url) as f:
-        lines = f.readlines()
-        star_data = {'typed ident': False, 'coord': False,
-                     'proper motion': False, 'parallax': False}
+    # Parse JSON file for the given constellation and interpret data
+    with open("constellations.json", "r") as f:
+        items = json.load(f)[name]
+        stars = list(items.keys())
+        neighbors = list(items.values())
+        for i in range(len(neighbors)):
+            neighbors[i] = ";".join(neighbors[i])
 
-        for line in lines:
-            line = line.decode()
-            for key in star_data.keys():
-                if line.startswith(key) and star_data[key] == False:
-                    star_data[key] = line[line.find(': ')+2:].strip()
-                    break
+    # Generate an astropy table
+    table = custom.query_objects(stars)
 
-    return star_data
+    # Remove script_number_id column
+    table.remove_column("SCRIPT_NUMBER_ID")
 
-def costellation_info(name_constellation):
-    """Fetches SIMBAD information on every star of a given constellation and
-    returns a dictionary from the data."""
+    # Add time, constellation and neighbors columns
+    constellation = Column(name="constellation", data=name)
+    time = Column(name="time", data=datetime.now(timezone.utc))
+    neighbors = Column(name="neighbors", data=neighbors)
+    table.add_columns([constellation, time, neighbors])
 
-    # Read json file and transform to dictionary
-    with open('constellations.json', 'r') as f:
-        consts = json.load(f)
-        stars_in_c = {}
-        stars_in_c["constellation"] = name_constellation
+    return table
 
-        for i in range(0,len(consts)):
-            name = consts[i].values()
-            if name_constellation in name:
-                star_name = consts[i]["stars"]
-                for j in star_name:
-                    key = j["name"]
-                    value = star_info(key)
-                    stars_in_c[key] = value
 
-    return stars_in_c
-
-def config(filename='database.ini', section='postgresql'):
-    """Reads configuration file."""
+def db_config(filename="database.ini", section="postgresql"):
+    """Reads database configuration file."""
 
     # Create a parser
     parser = ConfigParser()
@@ -88,52 +78,61 @@ def config(filename='database.ini', section='postgresql'):
         for param in params:
             db[param[0]] = param[1]
     else:
-        raise Exception('Section {0} not found in the {1} file'.format(section,
-                        filename))
+        raise Exception(
+            "Section {0} not found in the {1} file".format(section, filename)
+        )
 
     return db
 
-def send_to_database(data, f='database.ini'):
-    """Connect to the PostgreSQL database server, and send collected star info
+
+def send_to_database(table, f="database.ini"):
+    """Connect to the PostgreSQL database server, and sends collected star info
     to database."""
 
     conn = None
     try:
         # Read connection parameters
-        params = config(filename=f)
+        params = db_config(filename=f)
 
         # Connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        print("Connecting to the PostgreSQL database...")
         conn = psycopg2.connect(**params)
 
         # Create a cursor
         cur = conn.cursor()
 
         # Send star info to database
-        # INSERT INTO stars values (name, constellation, ra, dec, pm_ra, 
-        #                           pm_dec, parallax, time)
-
-        # Display the PostgreSQL database server version
-        db_version = cur.fetchone()
-        print(db_version)
+        sql = (
+            "INSERT INTO stars(name, ra, dec, pm_ra, pm_dec, parallax, "
+            "constellation, time, neighbors) VALUES (%s, %s, %s, %s, %s, %s, "
+            "%s, %s, %s);"
+        )
+        cur.executemany(sql, list(table.iterrows()))
+        conn.commit()
 
         # Close the communication with the PostgreSQL
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+        print(error)
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
+            print("Database connection closed.")
+
 
 def main(constellation, database_dir):
     """Driver code."""
 
     # Fetch constellation info
-    const_data = constellation_info(constellation)
+    const_data = query_constellation(constellation)
+
+    # Verify integrity
 
     # Send to database
     send_to_database(const_data, f=database_dir)
 
-if __name__ == '__main__':
-    main(argv[1], '../database/database.ini')
+
+if __name__ == "__main__":
+    # Script syntax:
+    # python3 spider.py [constellation]
+    main(argv[1], "../database/database.ini")
