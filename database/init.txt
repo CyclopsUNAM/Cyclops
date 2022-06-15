@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS stars (
   name VARCHAR(30),
-  ra VARCHAR(15),
-  dec VARCHAR(15),
+  ra CHAR(13),
+  dec CHAR(13),
   pm_ra NUMERIC(6, 2),
   pm_dec NUMERIC(6, 2),
   parallax NUMERIC(5, 2),
