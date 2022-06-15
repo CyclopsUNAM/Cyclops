@@ -23,6 +23,7 @@ collected data to a PostgreSQL database.
 
 import json
 import psycopg2
+import re
 from astropy.table import Column
 from astroquery.simbad import Simbad
 from datetime import datetime, timezone
@@ -54,9 +55,9 @@ def query_constellation(name):
     table.remove_column("SCRIPT_NUMBER_ID")
 
     # Add time, constellation and neighbors columns
-    constellation = Column(name="constellation", data=name)
-    time = Column(name="time", data=datetime.now(timezone.utc))
-    neighbors = Column(name="neighbors", data=neighbors)
+    constellation = Column(name="CONSTELLATION", data=name)
+    time = Column(name="TIME", data=datetime.now(timezone.utc))
+    neighbors = Column(name="NEIGHBORS", data=neighbors)
     table.add_columns([constellation, time, neighbors])
 
     return table
@@ -85,9 +86,73 @@ def db_config(filename="database.ini", section="postgresql"):
     return db
 
 
+def verify(table):
+    """Verifies the integrity of the astropy table created with the query_
+    constellation function; returns True if verification is successful, and
+    returns False otherwise."""
+
+    # Verify column names
+    if table.colnames != [
+        "TYPED_ID",
+        "RA",
+        "DEC",
+        "PMRA",
+        "PMDEC",
+        "PLX_VALUE",
+        "CONSTELLATION",
+        "TIME",
+        "NEIGHBORS",
+    ]:
+        return False
+
+    # Verify columns with numerical values
+    for column in ["PMRA", "PMDEC", "PLX_VALUE"]:
+        if table[column].dtype != "float64":
+            return False
+
+    # Regex for right ascension and declination verification
+    ra_regex = r"[0-9]{2} [0-9]{2} [0-9]{2}.[0-9]{4}"
+    dec_regex = r"(\+|-)[0-9]{2} [0-9]{2} [0-9]{2}.[0-9]{3}"
+
+    # Open JSON file to verify star, constellation and neighbor names
+    with open("constellations.json", "r") as f:
+        json_dict = json.load(f)
+
+    # Verify the rest of the data row by row
+    for row in table:
+
+        # Verify right ascension and declination
+        if (
+            bool(re.match(ra_regex, row["RA"])) is False
+            or bool(re.match(dec_regex, row["DEC"])) is False
+        ):
+            return False
+
+        # Verify datetime
+        if type(row["TIME"]) != datetime:
+            return False
+
+        # Verify constellation name
+        const = row["CONSTELLATION"]
+        if const not in json_dict.keys():
+            return False
+
+        # Verify star name
+        star = row["TYPED_ID"]
+        if star not in json_dict[const].keys():
+            return False
+
+        # Verify neighbor names
+        neighbors = row["NEIGHBORS"].split(";")
+        if neighbors != json_dict[const][star]:
+            return False
+
+    return True
+
+
 def send_to_database(table, f="database.ini"):
-    """Connect to the PostgreSQL database server, and sends collected star info
-    to database."""
+    """Connects to the PostgreSQL database server, and sends collected star
+    info to database."""
 
     conn = None
     try:
@@ -127,8 +192,10 @@ def main(constellation, database_dir):
     const_data = query_constellation(constellation)
 
     # Verify integrity
+    while verify(const_data) is False:
+        const_data = query_constellation(constellation)
 
-    # Send to database
+    # Send to database if verification is successful
     send_to_database(const_data, f=database_dir)
 
 
