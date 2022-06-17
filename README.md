@@ -15,6 +15,7 @@ ____
 * [Part_II._Data_Storage](#Part_II._Data_Storage)
 * [Part_III._Calculations](#Part_III._Calculations)
 * [Part_IV._Visualization](#Part_IV._Visualization)
+* [Conclusions](#Conclusions)
 * [References](#References)
 
 ____
@@ -95,14 +96,63 @@ ____
 
 ### Part_II._Data_Storage
 
+In the database we store these values:
+
+- Star name.
+- Right Ascension.
+- Declension.
+- Proper motion in right ascension.
+- Proper motion in declination.
+- Parallax.
+- Constellation.
+- Time.
+- Neighbors of the stars.
+
 ____
 
 ### Part_III._Calculations
+
+proccessing.py takes as parameters the constellation, the change in millennia and the type of real or apparent view.
+
+Like spider.py, processing.py requires a configuration file located in the processing folder.
+
+The file contains the following:
+
+[processing]
+
+user=
+
+host=
+
+route=
+
+
 
 ____
 
 ### Part_IV._Visualization
 
+What happens in the backend is that it connects to the database twice:
+
+The first time is for spider to save the information from the database (What processing does is tell spider to download the information and spider automatically saves it to the database).
+
+The second time proccesing calls the database (Processing waits for the information to be downloaded, takes the data from spider, does the calculations and graphs them).
+
+With the help of gradio, we create a graphical user interface that contains:
+
+- Constellation.
+- Millennium Difference.
+- Real or Apparent.
+- Image of the constellation depending on the change in the millennium.
+
+![Alt text](https://github.com/JZRodriguez/fingerprints_project/blob/main/Prueba3.jpg 'Image-r')  
+
+representative image
+____
+
+## Conclusions
+
+What surprised us was knowing that the change in the position of the stars is almost imperceptible, although we are satisfied with the work done, the observed position of the constellations: Leo, Aquarius, Scoprio does not vary much in the future.
 ____
 
 ## References
