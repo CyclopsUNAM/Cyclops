@@ -40,24 +40,41 @@ The purpose of this project is to allow the visualization of the differences bet
 
 ## Repository description
 The project is divided into:
+
+
 │   .gitignore 
+
 │   config.ini
+
 │   Image-r.jpeg
+
 │   LICENSE
+
 │   README.md
+
 │
+
 ├───database
-│       init.txt
+
+>│       init.txt
+
 │
+
 ├───processing
-│       processing.py
+
+>│       processing.py
+
 │
+
 ├───public_html
-│       framegen.py
+
+>│       framegen.py
+
 │
+
 └───spider
-        constellations.json
-        spider.py
+>|       constellations.json
+>|       spider.py
 
 Where: 
 * config.ini: Is a configuration file required by spider.py, processing.py and framegen.py for proper operation. Is not included in github given that contains sensitive information.
