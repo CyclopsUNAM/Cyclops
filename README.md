@@ -75,6 +75,10 @@ ____
 
 ## Methodology
 
+The project is divided into:
+- spider.
+- processing.
+- database.
 
 ### Part_I._Data_Collection
 
@@ -85,37 +89,10 @@ from urllib.request import urlopen
 data = urlopen('https://simbad.cds.unistra.fr/simbad/sim-script?submit=submit+script&script=query+id+alpha+centauri')
 ```
 
-The `starinfo` function from the `spider.py` module does this process automatically for any given object, returning a Python dictionary of the data required for our project. In particular, this data includes:
-
-- Aquí
-- irá
-- una
-- lista
-- de
-- datos
-- (con su descripción)
-
 However, SIMBAD contains no information on constellations, so we had to search for it elsewhere. Because different authors and websites provided slightly distinct configurations for the constellations, our team decided to use the information from a single source to ensure its consistency: Philip M. Bagnall's book titled *The Star Atlas Companion*. From it, we created a JSON file, in which, for every constellation [^1], we list each star and their respective neighbors. The contents of this file can be found in `constellations.json`. So, every time a request is made for a particular constellation, our software will automatically download the data corresponding to the stars found in the given constellation. This process is implemented in the `no_name_function` function from the `spider.py` module.
 
-____
 
-### Part_II._Data_Storage
-
-In the database we store these values:
-
-- Star name.
-- Right Ascension.
-- Declension.
-- Proper motion in right ascension.
-- Proper motion in declination.
-- Parallax.
-- Constellation.
-- Time.
-- Neighbors of the stars.
-
-____
-
-### Part_III._Calculations
+It is important to mention that.
 
 Inside spider we have two files:
 
@@ -155,6 +132,27 @@ user=
 host=
 
 route=
+
+____
+
+### Part_II._Data_Storage
+
+In the database we store these values:
+
+- Star name.
+- Right Ascension.
+- Declension.
+- Proper motion in right ascension.
+- Proper motion in declination.
+- Parallax.
+- Constellation.
+- Time.
+- Neighbors of the stars.
+
+____
+
+### Part_III._Calculations
+
 
 
 ____
