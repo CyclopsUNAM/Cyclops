@@ -2,31 +2,10 @@
 
 National Autonomous University of Mexico (https://www.unam.mx/).
 
-____
-
-## Table of Contents
-* [Team_Members](#Team_Members)
-* [License](#License)
-* [Introduction](#Introduction)
-* [Objectives](#Objectives)
-* [Used_Tools](#Used_Tools)
-* [Methodology](#Methodology)
-* [Part_I._Data_Collection](#Part_I._Data_Collection)
-* [Part_II._Data_Storage](#Part_II._Data_Storage)
-* [Part_III._Calculations](#Part_III._Calculations)
-* [Part_IV._Visualization](#Part_IV._Visualization)
-* [Conclusions](#Conclusions)
-* [References](#References)
-
-____
-
-## Team_Members
 
 - Karime Ochoa Jacinto ([Kadkam8a](https://github.com/Kadkam8a))
 - Luis Aaron Nieto Cruz ([LuisAaronNietoCruz](https://github.com/LuisAaronNietoCruz))
 - Anton Pashkov ([anton-pashkov](https://github.com/anton-pashkov))
-
-____
 
 ## License
 
@@ -38,7 +17,18 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-____
+
+## Table of Contents
+* [Introduction](#Introduction)
+* [Objectives](#Objectives)
+* [Methodology](#Methodology)
+* [Part I: Data collection](#Part I: Data collection)
+* [Part II: Data storage](#Part II: Data storage)
+* [Part III: Calculations](#Part III: Calculations)
+* [Part IV: Visualization](#Part IV: Visualization)
+* [Conclusions](#Conclusions)
+* [Used tools](#Used tools)
+* [References](#References)
 
 
 ## Introduction
@@ -49,7 +39,6 @@ In his manuscripts, Ptolemy describes the stellar sky as a collection of mytholo
 
 The purpose of this project is to allow the visualization of the differences between Ptolomean constellations as we can see them with a naked eye and how they would look like if there was no temporal dimension (i.e. the real images of the constellations if we could see the stars in their current positions). The execution of the project is distributed in four parts (data collection, data storage, calculation, and visualiation), each of which runs on a different computer system.
 
-____
 
 ## Objectives
 
@@ -59,30 +48,21 @@ ____
 - Compare the observed and real positions of the stars from three constellations: Aquarius, Scorpio, and Leo (corresponding to the horoscopes of the authors of this project).
 - Deploy a website in which you can visualize the observed version of the constellations, and their respective real versions produced by our calculations.
 
-____
-
-## Used_Tools
-
-- [SIMBAD](http://simbad.u-strasbg.fr/simbad/).
-- [Python 3](https://www.python.org/).
-- [Gradio](https://gradio.app/).
-- [Astropy](https://www.astropy.org/)
-- [Matplotlib](https://matplotlib.org/)
-- [Numpy](https://numpy.org/)
-
-
-____
 
 ## Methodology
 
 The project is divided into:
-- spider. Inside spider we have spider.py and constellations.json
-- processing. Inside processing we have processing.py
-- database. Inside the database we have init.txt
+- Spider: Inside spider we have spider.py and constellations.json
+- Processing: Inside processing we have processing.py
+- Database: Inside the database we have init.txt
 
-### Part_I._Data_Collection
+### Part I: Data collection
 
-The Set of Identifications, Measurements and Bibliography for Astronomical Data ([SIMBAD](https://simbad.cds.unistra.fr/simbad/)) is perhaps one of the most comprehensive astronomical databases available to the public. It stores detailed information on many cosmic objects (such as stars and planets), as well as bibliographic data, providing several ways to query this information. For this project, we will use the [script execution query mode](https://simbad.cds.unistra.fr/simbad/sim-fscript) as it enables us to build our automatic data collection system in a simpler way. By using the `query id` command followed by the name of an object (such as a star), you can fetch the information available on the given object. Furthermore, when submitting this kind of script, you are automatically redirected to a URL in the form of `https://simbad.cds.unistra.fr/simbad/sim-script?submit=submit+script&script=query+id+[OBJECT NAME]`. Thus, we can open the URL through Python for any object by employing the `urlopen` function from the `urllib.request` library. For instance, to fetch the data on the Alpha Centauri star, we would type:
+The Set of Identifications, Measurements and Bibliography for Astronomical Data ([SIMBAD](https://simbad.cds.unistra.fr/simbad/)) is perhaps one of the most comprehensive astronomical databases available to the public. It stores detailed information on many cosmic objects (such as stars and planets), as well as bibliographic data, providing several ways to query this information. 
+
+For this project, we will use the [script execution query mode](https://simbad.cds.unistra.fr/simbad/sim-fscript) as it enables to build automatic data collection systems in a simpler way. By using the `query id` command followed by the name of an object (such as a star), you can fetch the information available on the given object. Furthermore, when submitting this kind of script, you are automatically redirected to an URL in the form of `https://simbad.cds.unistra.fr/simbad/sim-script?submit=submit+script&script=query+id+[OBJECT NAME]`. Thus, we can open the URL through Python for any object by employing the `urlopen` function from the `urllib.request` library. 
+
+For instance, to fetch the data on the Alpha Centauri star, we would type:
 
 ```python
 from urllib.request import urlopen
@@ -91,16 +71,9 @@ data = urlopen('https://simbad.cds.unistra.fr/simbad/sim-script?submit=submit+sc
 
 However, SIMBAD contains no information on constellations, so we had to search for it elsewhere. Because different authors and websites provided slightly distinct configurations for the constellations, our team decided to use the information from a single source to ensure its consistency: Philip M. Bagnall's book titled *The Star Atlas Companion*. From it, we created a JSON file, in which, for every constellation [^1], we list each star and their respective neighbors. The contents of this file can be found in `constellations.json`. So, every time a request is made for a particular constellation, our software will automatically download the data corresponding to the stars found in the given constellation. This process is implemented in the `no_name_function` function from the `spider.py` module.
 
+Important notes:
 
-It is important to mention that...
-
-Inside spider we have two files:
-
-spider.py
-
-constellations.json: In a dictionary it stores the connected stars within its constellation)
-
-For spider.py to work it requires a configuration file located inside the database folder.
+Inside spider are two files: spider.py and constellations.json wich, in a dictionary, stores the connected stars within its constellations. For spider.py to work requires a configuration file located inside the database folder.
 
 The file contains the following:
 
@@ -135,7 +108,7 @@ route=
 
 ____
 
-### Part_II._Data_Storage
+### Part II: Data storage
 
 In the database we store these values:
 
@@ -149,9 +122,8 @@ In the database we store these values:
 - Time.
 - Neighbors of the stars.
 
-____
 
-### Part_III._Calculations
+### Part III: Calculations
 
 For processing you will need:
 spider.py
@@ -160,9 +132,8 @@ spider.py the astropy library will be required for calculations and astroquery f
 
 processing.py requires astropy, you don't need astroquery why don't you download anything from the internet
 
-____
 
-### Part_IV._Visualization
+### Part IV: Visualization
 
 What happens in the backend is that it connects to the database twice:
 
@@ -180,12 +151,19 @@ With the help of gradio, we create a graphical user interface that contains:
 ![Alt text](https://github.com/CyclopsUNAM/Cyclops/blob/main/Image-r.jpeg 'Image-r')  
 
 Representative Image.
-____
 
 ## Conclusions
 
 What surprised us was knowing that the change in the position of the stars is almost imperceptible, although we are satisfied with the work done, the observed position of the constellations: Leo, Aquarius, Scoprio does not vary much in the future.
-____
+
+## Used tools
+
+- [SIMBAD](http://simbad.u-strasbg.fr/simbad/).
+- [Python 3](https://www.python.org/).
+- [Gradio](https://gradio.app/).
+- [Astropy](https://www.astropy.org/)
+- [Matplotlib](https://matplotlib.org/)
+- [Numpy](https://numpy.org/)
 
 ## References
 
