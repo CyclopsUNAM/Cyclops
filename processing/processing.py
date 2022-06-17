@@ -43,7 +43,7 @@ def config(filename, section):
     # Read config file
     parser.read(filename)
 
-    # Get section, default to postgresql
+    # Get section
     db = {}
     if parser.has_section(section):
         params = parser.items(section)
@@ -57,7 +57,7 @@ def config(filename, section):
     return db
 
 
-def get_most_recent(constellation, f="database.ini"):
+def get_most_recent(constellation, f):
     """Connects to the PostgreSQL database server, and fetches the most recent
     data on the given constellation."""
 
@@ -67,7 +67,6 @@ def get_most_recent(constellation, f="database.ini"):
         params = config(filename=f, section="postgresql")
 
         # Connect to the PostgreSQL server
-        print("Connecting to the PostgreSQL database...")
         conn = psycopg2.connect(**params)
 
         # Create a cursor
@@ -99,7 +98,6 @@ def get_most_recent(constellation, f="database.ini"):
     finally:
         if conn is not None:
             conn.close()
-            print("Database connection closed.")
             return Table(rows=result, names=columns)
 
 
@@ -107,7 +105,7 @@ def processing(constellation, dmill, viewtype):
     """Runs spider on a remote host on a given constellation, calculates the
     new coordinates (in accordance to dmill and viewtype), and returns a
     matplotlib figure of the constellation. Make sure to create a
-    processing.ini file in the current directory with this format:
+    processing section file in the config.ini file with this format:
 
     [processing]
     user=[name]
@@ -125,15 +123,18 @@ def processing(constellation, dmill, viewtype):
     """
 
     # Read processing configuration file
-    conf = config("processing.ini", "processing")
-    user, host, route = conf["user"], conf["host"], conf["route"]
+    conf = config("../config.ini", "processing")
+    user, host = conf["user"], conf["host"]
+    route, img = conf["route"], conf["img"]
+    if img[-1] != "/":
+        img = img + "/"
 
     # Run spider on the constellation
     command = f'ssh {user}@{host} "cd {route}; ./spider.py {constellation}"'
     os.system(command)
 
     # Get most recent data on the given constellation and save it to table
-    table = get_most_recent(constellation, f="../database/database.ini")
+    table = get_most_recent(constellation, f="../config.ini")
 
     # Split names of neighbors column
     table["NEIGHBORS"] = [e.split(";") for e in table["NEIGHBORS"]]
@@ -163,7 +164,10 @@ def processing(constellation, dmill, viewtype):
     table["DEC"] = coords.dec
 
     # Plot constellation
+    figname = img + table["TIME"][0].strftime("%Y%m%d%H%M%S%f") + ".png"
     output_figure = plot_constellation(table)
+    output_figure.savefig(figname)
+    print(f"Image created in: {figname}")
 
     return output_figure
 
@@ -176,7 +180,7 @@ def plot_constellation(table):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.invert_xaxis()
-    ax.grid(True)
+    ax.axis("off")
 
     # Plot individual stars
     ax.scatter(table["RA"], table["DEC"], color="#191919", s=20)
@@ -200,7 +204,6 @@ def main(constellation, dmill, viewtype):
     """Driver code."""
 
     processing(constellation, dmill, viewtype)
-    plt.show()
 
 
 if __name__ == '__main__':

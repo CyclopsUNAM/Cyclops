@@ -63,8 +63,8 @@ def query_constellation(name):
     return table
 
 
-def db_config(filename="database.ini", section="postgresql"):
-    """Reads database configuration file."""
+def config(filename, section):
+    """Reads configuration file."""
 
     # Create a parser
     parser = ConfigParser()
@@ -72,7 +72,7 @@ def db_config(filename="database.ini", section="postgresql"):
     # Read config file
     parser.read(filename)
 
-    # Get section, default to postgresql
+    # Get section
     db = {}
     if parser.has_section(section):
         params = parser.items(section)
@@ -150,17 +150,16 @@ def verify(table):
     return True
 
 
-def send_to_database(table, f="database.ini"):
+def send_to_database(table, filename):
     """Connects to the PostgreSQL database server, and sends collected star
     info to database."""
 
     conn = None
     try:
         # Read connection parameters
-        params = db_config(filename=f)
+        params = config(filename=filename, section="postgresql")
 
         # Connect to the PostgreSQL server
-        print("Connecting to the PostgreSQL database...")
         conn = psycopg2.connect(**params)
 
         # Create a cursor
@@ -182,10 +181,9 @@ def send_to_database(table, f="database.ini"):
     finally:
         if conn is not None:
             conn.close()
-            print("Database connection closed.")
 
 
-def main(constellation, database_dir):
+def main(constellation, conf_dir):
     """Driver code."""
 
     # Fetch constellation info
@@ -196,10 +194,10 @@ def main(constellation, database_dir):
         const_data = query_constellation(constellation)
 
     # Send to database if verification is successful
-    send_to_database(const_data, f=database_dir)
+    send_to_database(table=const_data, filename=conf_dir)
 
 
 if __name__ == "__main__":
     # Script syntax:
-    # python3 spider.py [constellation]
-    main(argv[1], "../database/database.ini")
+    # ./spider.py [constellation]
+    main(argv[1], "../config.ini")
