@@ -9,13 +9,13 @@
     "Lambda Aquarii": ["Tau Aquarii", "Theta Aquarii"],
     "Theta Aquarii": ["Lambda Aquarii", "Iota Aquarii", "Gamma Aquarii"],
     "Iota Aquarii": ["Theta Aquarii"],
-    "Gamma Aquarii": ["Theta Auqarii", "Alpha Aquarii", "Zeta Aquarii"],
+    "Gamma Aquarii": ["Theta Aquarii", "Alpha Aquarii", "Zeta Aquarii"],
     "Zeta Aquarii": ["Gamma Aquarii", "Pi Aquarii"],
     "Pi Aquarii": ["Zeta Aquarii"],
     "Alpha Aquarii": ["Gamma Aquarii", "Beta Aquarii"],
-    "Beta Aquarii": ["Alpha Aquarii", "Nu Aquarii"],
-    "Nu Aquarii": ["Beta Aquarii", "Epsilon Aquarii"],
-    "Epsilon Aquarii": ["Nu Aquarii"]
+    "Beta Aquarii": ["Alpha Aquarii", "13 Aquarii"],
+    "13 Aquarii": ["Beta Aquarii", "Epsilon Aquarii"],
+    "Epsilon Aquarii": ["13 Aquarii"]
   },
   "Leo": {
     "Beta Leo": ["Delta Leo", "Theta Leo"],
