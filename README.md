@@ -57,7 +57,7 @@ The project is divided into:
 - database: Inside the database we have init.txt
 - public_html: Inside the public_html we have framegen.py
 
-### Part I: Data collection
+### Part I: Data collection <a name="Part I: Data collection"></a>
 
 The Set of Identifications, Measurements and Bibliography for Astronomical Data ([SIMBAD](https://simbad.cds.unistra.fr/simbad/)) is perhaps one of the most comprehensive astronomical databases available to the public. It stores detailed information on many cosmic objects (such as stars and planets), as well as bibliographic data, providing several ways to query this information. 
 
