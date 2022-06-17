@@ -9,12 +9,12 @@ ____
 * [License](##License)
 * [Introduction](##Introduction)
 * [Objectives](##Objectives)
-* [Used Tools](#Used Tools)
+* [Used Tools](##UsedTools)
 * [Methodology](##Methodology)
-* [Part I. Data Collection](Part I. Data Collection)
-* [Part II. Data Storage](Part II. Data Storage)
-* [Part III. Calculations](Part III. Calculations)
-* [Part IV. Visualization](Part IV. Visualization)
+* [Part I. Data Collection](##PartI.Data Collection)
+* [Part II. Data Storage](##PartII.Data Storage)
+* [Part III. Calculations](##PartIII.Calculations)
+* [Part IV. Visualization](##PartIV.Visualization)
 * [References](##References)
 
 ____
@@ -24,8 +24,6 @@ ____
 - Karime Ochoa Jacinto ([Kadkam8a](https://github.com/Kadkam8a))
 - Luis Aaron Nieto Cruz ([LuisAaronNietoCruz](https://github.com/LuisAaronNietoCruz))
 - Anton Pashkov ([anton-pashkov](https://github.com/anton-pashkov))
-
-The contents of this repository are licensed under the GNU General Public License version 3. Visit https://www.gnu.org/licenses/gpl-3.0.html for more information.
 
 ____
 
@@ -39,6 +37,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+____
+
 
 ## Introduction
 
@@ -48,6 +48,8 @@ In his manuscripts, Ptolemy describes the stellar sky as a collection of mytholo
 
 The purpose of this project is to allow the visualization of the differences between Ptolomean constellations as we can see them with a naked eye and how they would look like if there was no temporal dimension (i.e. the real images of the constellations if we could see the stars in their current positions). The execution of the project is distributed in four parts (data collection, data storage, calculation, and visualiation), each of which runs on a different computer system.
 
+____
+
 ## Objectives
 
 - Design a data collection software for the SIMBAD Astronomical Database, which will fetch the information of all the stars in a given IAU designated constellation.
@@ -56,12 +58,17 @@ The purpose of this project is to allow the visualization of the differences bet
 - Compare the observed and real positions of the stars from three constellations: Aquarius, Scorpio, and Leo (corresponding to the horoscopes of the authors of this project).
 - Deploy a website in which you can visualize the observed version of the constellations, and their respective real versions produced by our calculations.
 
+____
+
 ## Used Tools
 
 - [SIMBAD](http://simbad.u-strasbg.fr/simbad/).
 - [Python 3](https://www.python.org/).
+- [Gradio](https://gradio.app/).
+____
 
 ## Methodology
+
 
 ### Part I. Data Collection
 
@@ -84,19 +91,19 @@ The `starinfo` function from the `spider.py` module does this process automatica
 
 However, SIMBAD contains no information on constellations, so we had to search for it elsewhere. Because different authors and websites provided slightly distinct configurations for the constellations, our team decided to use the information from a single source to ensure its consistency: Philip M. Bagnall's book titled *The Star Atlas Companion*. From it, we created a JSON file, in which, for every constellation [^1], we list each star and their respective neighbors. The contents of this file can be found in `constellations.json`. So, every time a request is made for a particular constellation, our software will automatically download the data corresponding to the stars found in the given constellation. This process is implemented in the `no_name_function` function from the `spider.py` module.
 
+____
+
 ### Part II. Data Storage
 
-
+____
 
 ### Part III. Calculations
 
-
+____
 
 ### Part IV. Visualization
-Probandooo
 
-
-
+____
 
 ## References
 
