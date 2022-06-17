@@ -52,9 +52,10 @@ The purpose of this project is to allow the visualization of the differences bet
 ## Methodology
 
 The project is divided into:
-- Spider: Inside spider we have spider.py and constellations.json
-- Processing: Inside processing we have processing.py
-- Database: Inside the database we have init.txt
+- spider: Inside spider we have spider.py and constellations.json
+- processing: Inside processing we have processing.py
+- database: Inside the database we have init.txt
+- public_html: Inside the public_html we have framegen.py
 
 ### Part I: Data collection
 
