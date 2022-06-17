@@ -66,6 +66,11 @@ ____
 - [SIMBAD](http://simbad.u-strasbg.fr/simbad/).
 - [Python 3](https://www.python.org/).
 - [Gradio](https://gradio.app/).
+- [Astropy](https://www.astropy.org/)
+- [Matplotlib](https://matplotlib.org/)
+- [Numpy](https://numpy.org/)
+
+
 ____
 
 ## Methodology
