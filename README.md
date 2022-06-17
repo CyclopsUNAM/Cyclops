@@ -73,38 +73,51 @@ However, SIMBAD contains no information on constellations, so we had to search f
 
 Important notes:
 
-Inside spider are two files: spider.py and constellations.json wich, in a dictionary, stores the connected stars within its constellations. For spider.py to work requires a configuration file located inside the database folder.
-
-The file contains the following:
-
-[pstgresql]
-
-database=
-
-user=
-
-password=
-
-host=
-
-port=
+Inside spider are two files: spider.py and constellations.json wich, in a dictionary, stores the connected stars within its constellations. 
 
 This file has the connection data and is generated within the servers so that spider can read it
 It is not on github because it has sensitive information.
 
 proccessing.py takes as parameters the constellation, the change in millennia and the type of real or apparent view.
 
-Like spider.py, processing.py requires a configuration file located in the processing folder.
 
-The file contains the following:
 
-[processing]
+The base configuration file is located in config.ini
 
-user=
+This configuration file is required by both spider.py, processing.py and framegen.py for proper operation.
 
-host=
+Each file contains:
 
-route=
+
+[postgresql]
+
+database =
+
+user =
+
+password =
+
+hostess =
+
+port =
+
+[Processing]
+
+user =
+
+hostess =
+
+route =
+
+image =
+
+[framegen]
+
+user =
+
+hostess =
+
+route =
 
 ____
 
