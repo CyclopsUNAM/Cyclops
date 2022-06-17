@@ -18,19 +18,6 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-## Table of Contents
-* [Introduction](#Introduction)
-* [Objectives](#Objectives)
-* [Methodology](#Methodology)
-* [Part I: Data collection](#Part_I:_Data_collection)
-* [Part II: Data storage](#Part-II:-Data-storage)
-* [Part III: Calculations](#Part-III:-Calculations)
-* [Part IV: Visualization](#Part-IV:-Visualization)
-* [Conclusions](#Conclusions)
-* [Used tools](#Used-tools)
-* [References](#References)
-
-
 ## Introduction
 
 The night sky has been a source of astonishment (reflected in the numerous cultural and artistic endeavors of ancient civilizations) and knowledge (such as marine navigation, lunar eclipse predictions, and agricultural activities) for humanity since its inception. 
@@ -51,14 +38,31 @@ The purpose of this project is to allow the visualization of the differences bet
 
 ## Methodology
 
+## Repository description
 The project is divided into:
-- spider: Inside spider we have spider.py and constellations.json
-- processing: Inside processing we have processing.py
-- database: Inside the database we have init.txt
-- public_html: Inside the public_html we have framegen.py
+│   .gitignore 
+│   config.ini
+│   Image-r.jpeg
+│   LICENSE
+│   README.md
+│
+├───database
+│       init.txt
+│
+├───processing
+│       processing.py
+│
+├───public_html
+│       framegen.py
+│
+└───spider
+        constellations.json
+        spider.py
 
-### Part I: Data collection <a name="Part I: Data collection"></a>
+Where: 
+* config.ini: Is a configuration file required by spider.py, processing.py and framegen.py for proper operation. Is not included in github given that contains sensitive information.
 
+### Part I: Data collection 
 The Set of Identifications, Measurements and Bibliography for Astronomical Data ([SIMBAD](https://simbad.cds.unistra.fr/simbad/)) is perhaps one of the most comprehensive astronomical databases available to the public. It stores detailed information on many cosmic objects (such as stars and planets), as well as bibliographic data, providing several ways to query this information. 
 
 For this project, we will use the [script execution query mode](https://simbad.cds.unistra.fr/simbad/sim-fscript) as it enables to build automatic data collection systems in a simpler way. By using the `query id` command followed by the name of an object (such as a star), you can fetch the information available on the given object. Furthermore, when submitting this kind of script, you are automatically redirected to an URL in the form of `https://simbad.cds.unistra.fr/simbad/sim-script?submit=submit+script&script=query+id+[OBJECT NAME]`. Thus, we can open the URL through Python for any object by employing the `urlopen` function from the `urllib.request` library. 
@@ -72,59 +76,10 @@ data = urlopen('https://simbad.cds.unistra.fr/simbad/sim-script?submit=submit+sc
 
 However, SIMBAD contains no information on constellations, so we had to search for it elsewhere. Because different authors and websites provided slightly distinct configurations for the constellations, our team decided to use the information from a single source to ensure its consistency: Philip M. Bagnall's book titled *The Star Atlas Companion*. From it, we created a JSON file, in which, for every constellation [^1], we list each star and their respective neighbors. The contents of this file can be found in `constellations.json`. So, every time a request is made for a particular constellation, our software will automatically download the data corresponding to the stars found in the given constellation. This process is implemented in the `no_name_function` function from the `spider.py` module.
 
-Important notes:
-
-Inside spider are two files: spider.py and constellations.json wich, in a dictionary, stores the connected stars within its constellations. 
-
-This file has the connection data and is generated within the servers so that spider can read it
-It is not on github because it has sensitive information.
-
-proccessing.py takes as parameters the constellation, the change in millennia and the type of real or apparent view.
-
-
-
-The base configuration file is located in config.ini
-
-This configuration file is required by both spider.py, processing.py and framegen.py for proper operation.
-
-Each file contains:
-
-
-[postgresql]
-
-database =
-
-user =
-
-password =
-
-hostess =
-
-port =
-
-[Processing]
-
-user =
-
-hostess =
-
-route =
-
-image =
-
-[framegen]
-
-user =
-
-hostess =
-
-route =
-
-____
 
 ### Part II: Data storage
 
-In the database we store these values:
+The database stores the following values provided by the spyder:
 
 - Star name.
 - Right Ascension.
@@ -139,28 +94,16 @@ In the database we store these values:
 
 ### Part III: Calculations
 
-For processing you will need:
-spider.py
-
-spider.py the astropy library will be required for calculations and astroquery for downloading information
-
-processing.py requires astropy, you don't need astroquery why don't you download anything from the internet
-
+The proccessing function calls the spider to fetch the information from SIMBAD and store it in the database, then proccessing access the database to get the data, do the calculations with it, plot the constellation and send it to framegen.py to display for the user.
 
 ### Part IV: Visualization
-
-What happens in the backend is that it connects to the database twice:
-
-The first time is for spider to save the information from the database (What processing does is tell spider to download the information and spider automatically saves it to the database).
-
-The second time proccesing calls the database (Processing waits for the information to be downloaded, takes the data from spider, does the calculations and graphs them).
 
 With the help of gradio, we create a graphical user interface that contains:
 
 - Constellation.
 - Millennium Difference.
-- Real or Apparent.
-- Image of the constellation depending on the change in the millennium.
+- Real or Apparent visulization.
+- Image of the constellation depending on the chosen parameters.
 
 ![Alt text](https://github.com/CyclopsUNAM/Cyclops/blob/main/Image-r.jpeg 'Image-r')  
 
@@ -168,7 +111,7 @@ Representative Image.
 
 ## Conclusions
 
-What surprised us was knowing that the change in the position of the stars is almost imperceptible, although we are satisfied with the work done, the observed position of the constellations: Leo, Aquarius, Scoprio does not vary much in the future.
+The surprising outcome of this proyect is that the diferences between the position of the stars is almost imperceptible and it would be necessary that the stars were further away in order to notice a change. 
 
 ## Used tools
 
