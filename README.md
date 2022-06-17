@@ -112,6 +112,31 @@ ____
 
 ### Part_III._Calculations
 
+Inside spider we have two files:
+
+spider.py
+
+constellations.json: In a dictionary it stores the connected stars within its constellation)
+
+For spider.py to work it requires a configuration file located inside the database folder.
+
+The file contains the following:
+
+[pstgresql]
+
+database=
+
+user=
+
+password=
+
+host=
+
+port=
+
+This file has the connection data and is generated within the servers so that spider can read it
+It is not on github because it has sensitive information.
+
 proccessing.py takes as parameters the constellation, the change in millennia and the type of real or apparent view.
 
 Like spider.py, processing.py requires a configuration file located in the processing folder.
@@ -125,7 +150,6 @@ user=
 host=
 
 route=
-
 
 
 ____
@@ -145,9 +169,9 @@ With the help of gradio, we create a graphical user interface that contains:
 - Real or Apparent.
 - Image of the constellation depending on the change in the millennium.
 
-![Alt text](https://github.com/JZRodriguez/fingerprints_project/blob/main/Prueba3.jpg 'Image-r')  
+![Alt text](https://github.com/CyclopsUNAM/Cyclops/blob/main/Image-r.jpeg 'Image-r')  
 
-representative image
+Representative Image.
 ____
 
 ## Conclusions
