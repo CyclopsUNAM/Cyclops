@@ -22,6 +22,7 @@ see the function's doctstring.
 """
 
 import os
+from sys import argv
 from configparser import ConfigParser
 
 import psycopg2
@@ -194,5 +195,15 @@ def plot_constellation(table):
 
     return fig
 
-processing("Aquarius", 0, "Real")
-plt.show()
+
+def main(constellation, dmill, viewtype):
+    """Driver code."""
+
+    processing(constellation, dmill, viewtype)
+    plt.show()
+
+
+if __name__ == '__main__':
+    # Script syntax:
+    # ./processing [constellation] [dmill] [viewtype]
+    main(argv[1], int(argv[2]), argv[3])
