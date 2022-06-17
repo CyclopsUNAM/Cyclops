@@ -6,16 +6,16 @@ ____
 
 ## Table of Contents
 * [Team_Members](#Team_Members)
-* [License](##License)
-* [Introduction](##Introduction)
-* [Objectives](##Objectives)
-* [Used_Tools](##Used_Tools)
-* [Methodology](##Methodology)
-* [Part_I._Data_Collection](##Part_I._Data_Collection)
-* [Part_II._Data_Storage](##Part_II._Data_Storage)
-* [Part_III._Calculations](##Part_III._Calculations)
-* [Part_IV._Visualization](##Part_IV._Visualization)
-* [References](##References)
+* [License](#License)
+* [Introduction](#Introduction)
+* [Objectives](#Objectives)
+* [Used_Tools](#Used_Tools)
+* [Methodology](#Methodology)
+* [Part_I._Data_Collection](#Part_I._Data_Collection)
+* [Part_II._Data_Storage](#Part_II._Data_Storage)
+* [Part_III._Calculations](#Part_III._Calculations)
+* [Part_IV._Visualization](#Part_IV._Visualization)
+* [References](#References)
 
 ____
 
