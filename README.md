@@ -9,12 +9,12 @@ ____
 * [License](##License)
 * [Introduction](##Introduction)
 * [Objectives](##Objectives)
-* [Used Tools](##UsedTools)
+* [Used_Tools](##Used_Tools)
 * [Methodology](##Methodology)
-* [Part I. Data Collection](##PartI.Data Collection)
-* [Part II. Data Storage](##PartII.Data Storage)
-* [Part III. Calculations](##PartIII.Calculations)
-* [Part IV. Visualization](##PartIV.Visualization)
+* [Part_I._Data_Collection](##Part_I._Data_Collection)
+* [Part_II._Data_Storage](##Part_II._Data_Storage)
+* [Part_III._Calculations](##Part_III._Calculations)
+* [Part_IV._Visualization](##Part_IV._Visualization)
 * [References](##References)
 
 ____
@@ -60,7 +60,7 @@ ____
 
 ____
 
-## Used Tools
+## Used_Tools
 
 - [SIMBAD](http://simbad.u-strasbg.fr/simbad/).
 - [Python 3](https://www.python.org/).
@@ -70,7 +70,7 @@ ____
 ## Methodology
 
 
-### Part I. Data Collection
+### Part_I._Data Collection
 
 The Set of Identifications, Measurements and Bibliography for Astronomical Data ([SIMBAD](https://simbad.cds.unistra.fr/simbad/)) is perhaps one of the most comprehensive astronomical databases available to the public. It stores detailed information on many cosmic objects (such as stars and planets), as well as bibliographic data, providing several ways to query this information. For this project, we will use the [script execution query mode](https://simbad.cds.unistra.fr/simbad/sim-fscript) as it enables us to build our automatic data collection system in a simpler way. By using the `query id` command followed by the name of an object (such as a star), you can fetch the information available on the given object. Furthermore, when submitting this kind of script, you are automatically redirected to a URL in the form of `https://simbad.cds.unistra.fr/simbad/sim-script?submit=submit+script&script=query+id+[OBJECT NAME]`. Thus, we can open the URL through Python for any object by employing the `urlopen` function from the `urllib.request` library. For instance, to fetch the data on the Alpha Centauri star, we would type:
 
@@ -93,15 +93,15 @@ However, SIMBAD contains no information on constellations, so we had to search f
 
 ____
 
-### Part II. Data Storage
+### Part_II._Data Storage
 
 ____
 
-### Part III. Calculations
+### Part_III._Calculations
 
 ____
 
-### Part IV. Visualization
+### Part_IV._Visualization
 
 ____
 
