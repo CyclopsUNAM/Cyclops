@@ -76,9 +76,9 @@ ____
 ## Methodology
 
 The project is divided into:
-- spider.
-- processing.
-- database.
+- spider. Inside spider we have spider.py and constellations.json
+- processing. Inside processing we have processing.py
+- database. Inside the database we have init.txt
 
 ### Part_I._Data_Collection
 
